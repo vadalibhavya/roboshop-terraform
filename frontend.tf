@@ -24,7 +24,7 @@ resource "aws_instance" "frontend" {
 
 
 resource "aws_route53_record" "frontend" {
-  zone_id = "Z02980273R2SC8CB35MNX"
+  zone_id = var.zone_id
   name    = "frontend-dev"
   type    = "A"
   ttl     = 10
