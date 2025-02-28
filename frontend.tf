@@ -1,3 +1,15 @@
+terraform {
+  required_providers {
+    ad = {
+      source  = "hashicorp/ad"
+      version = "0.5.0"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "3.2.2"
+    }
+  }
+}
 # ec2 instance create
 
 resource "aws_instance" "frontend" {
@@ -7,19 +19,7 @@ resource "aws_instance" "frontend" {
   tags = {
     Name = "frontend"
       }
-  provisioner "remote-exec" {
-    connection {
-      type = "ssh"
-      user = "ec2-user"
-      password = "DevOps321"
-      host = self.public_ip
-    }
-    inline = [
-      "sudo pip3 install ansible",
-      "ansible-pull -i localhost, -U https://github.com/vadalibhavya/roboshop-shell roboshop.yml -e env=dev -e role_name=frontend -e component_name=frontend"
 
-    ]
-  }
 }
 
 
@@ -31,3 +31,19 @@ resource "aws_route53_record" "frontend" {
   records = [aws_instance.frontend.private_ip]
 }
 
+resource "null_resource" "frontend" {
+  provisioner "remote-exec" {
+    connection {
+      type = "ssh"
+      user = "ec2-user"
+      password = "DevOps321"
+      host = aws_instance.frontend.private_ip
+    }
+    inline = [
+      "sudo pip3 install ansible",
+      "ansible-pull -i localhost, -U https://github.com/vadalibhavya/roboshop-shell roboshop.yml -e env=dev -e role_name=frontend -e component_name=frontend"
+
+    ]
+  }
+
+}
