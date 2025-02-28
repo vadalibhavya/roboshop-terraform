@@ -23,4 +23,4 @@ instance = {
   }
 
 }
-env = dev
+env = "dev"
