@@ -1,17 +1,3 @@
-terraform {
-  required_providers {
-	ad = {
-	  source  = "hashicorp/ad"
-	  version = "0.5.0"
-	}
-	null = {
-	  source  = "hashicorp/null"
-	  version = "3.2.2"
-	}
-  }
-}
-# ec2 instance create
-
 resource "aws_instance" "instance" {
   ami = var.ami_id
   instance_type = var.instance_type
