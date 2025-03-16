@@ -5,3 +5,4 @@ variable "zone_id" {}
 variable "name" {}
 variable "env" {}
 variable "vault_token" {}
+variable "ansible_role" {}

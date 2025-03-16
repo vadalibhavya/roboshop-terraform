@@ -16,6 +16,7 @@ resource "aws_route53_record" "record" {
   records = [aws_instance.instance.private_ip]
 }
 
+
 resource "null_resource" "catalogue" {
    provisioner "remote-exec" {
      connection {
@@ -26,7 +27,7 @@ resource "null_resource" "catalogue" {
      }
      inline = [
        "sudo pip3 install ansible",
-       "ansible-pull -i localhost, -U https://github.com/vadalibhavya/roboshop-ansible roboshop.yml -e env=${var.env} -e role_name=${var.name} -e component_name=${var.name}"
+       "ansible-pull -i localhost, -U https://github.com/vadalibhavya/roboshop-ansible roboshop.yml -e env=${var.env} -e role_name=${var.name} -e component_name=${var.ansible_role}"
 
      ]
    }
