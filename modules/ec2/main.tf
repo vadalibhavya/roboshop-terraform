@@ -16,19 +16,19 @@ resource "aws_route53_record" "record" {
   records = [aws_instance.instance.private_ip]
 }
 
-# resource "null_resource" "check" {
-#   provisioner "remote-exec" {
-#     connection {
-#       type = "ssh"
-#       user = "ec2-user"
-#       password = "DevOps321"
-#       host = aws_instance.instance[each.key].private_ip
-#     }
-#     inline = [
-#       "sudo pip3 install ansible",
-#       "ansible-pull -i localhost, -U https://github.com/vadalibhavya/roboshop-ansible roboshop.yml -e env=dev -e role_name=var.instance[count.index] -e component_name=var.instance[count.index]"
-#
-#     ]
-#   }
-#
-# }
+resource "null_resource" "catalogue" {
+   provisioner "remote-exec" {
+     connection {
+       type = "ssh"
+       user = "ec2-user"
+       password = "DevOps321"
+       host = aws_instance.instance.private_ip
+     }
+     inline = [
+       "sudo pip3 install ansible",
+       "ansible-pull -i localhost, -U https://github.com/vadalibhavya/roboshop-ansible roboshop.yml -e env=${var.env} -e role_name=${var.name} -e component_name=${var.name}"
+
+     ]
+   }
+
+ }
