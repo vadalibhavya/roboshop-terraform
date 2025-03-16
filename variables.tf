@@ -2,4 +2,4 @@ variable "instance" {}
 
 variable "env" {}
 variable "vault_token" {}
-variable "ansible_role" {}
+variable "eks" {}
